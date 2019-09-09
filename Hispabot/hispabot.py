@@ -1,4 +1,6 @@
 import os
+import tkinter
+from tkfilebrowser import askopenfilename
 from selenium import webdriver
 
 browser = webdriver.Chrome(executable_path='/chromedriver') 
@@ -13,10 +15,15 @@ titulo = browser.find_element_by_name('subject')
 
 post = browser.find_element_by_name('message') 
 #Busca el elemento post del post y almacena la forma de acceder a el en post
-
-input_ = input("Inserta la direccion exacta del archivo que quieres subir")
-imagen = browser.find_element_by_name("imagefile").send_keys(input_) 
-#Busca el elemento seleccionar archivo del post y envia el archivo que quieras#
+tkinter.Tk().withdraw()
+imagenI = askopenfilename()
+while true:
+ if imagenI:
+  imagen = browser.find_element_by_name("imagefile").send_keys(imagenI)
+  break
+ else:
+  print("Por favor, inserte bien el archivo")
+#Busca el elemento seleccionar archivo del post y abre un dialogo Tkinter para seleccionar el archivo que quieras#
 
 input_ = input("Inserta el titulo del post: ")
 titulo.send_keys(input_)
@@ -27,7 +34,7 @@ post.send_keys(input_)
 #Le envia el post que insertes
 
 click = browser.find_element_by_class_name("enviar").click()
-#Busca el boton de enviar y le hace click... Si no tiene misterio
+#Busca el boton de enviar y le hace click... Si, no tiene misterio
 print("Tu post ha sido enviado")
  
 print("Objeto Navegador -> ", browser)
